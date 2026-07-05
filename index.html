@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>NEON DRIFT — Endless Runner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ LOADING SCREEN ============ -->
+<section id="loading-screen" class="screen">
+  <div class="grid-floor"></div>
+  <div class="loading-content">
+    <h1 class="logo-text">NEON<span>DRIFT</span></h1>
+    <div class="load-bar-track">
+      <div class="load-bar-fill" id="load-bar-fill"></div>
+    </div>
+    <p class="load-status" id="load-status">BOOTING SYSTEM…</p>
+  </div>
+</section>
+
+<!-- ============ HOME SCREEN ============ -->
+<section id="home-screen" class="screen hidden">
+  <div class="grid-floor"></div>
+  <div class="scanline-overlay"></div>
+
+  <header class="home-header">
+    <h1 class="logo-text small">NEON<span>DRIFT</span></h1>
+  </header>
+
+  <div class="glass-card score-box" id="home-score-box">
+    <div class="score-box-row">
+      <span class="score-label">BEST</span>
+      <span class="score-value" id="home-best-score">0</span>
+    </div>
+  </div>
+
+  <nav class="home-menu">
+    <button class="btn btn-primary" id="btn-start">▶ START GAME</button>
+    <button class="btn btn-glass" id="btn-shop">🛒 SHOP</button>
+    <button class="btn btn-glass" id="btn-settings">⚙ SETTINGS</button>
+  </nav>
+
+  <p class="footer-tag">swipe left / right to dodge</p>
+</section>
+
+<!-- ============ SHOP SCREEN ============ -->
+<section id="shop-screen" class="screen hidden">
+  <div class="grid-floor"></div>
+  <header class="sub-header">
+    <button class="btn-icon" id="shop-back">←</button>
+    <h2>SHOP</h2>
+    <div class="glass-pill" id="shop-progress-pill">SCORE 0</div>
+  </header>
+
+  <div class="tabs" id="shop-tabs">
+    <button class="tab active" data-cat="skins">SKINS</button>
+    <button class="tab" data-cat="themes">THEMES</button>
+    <button class="tab" data-cat="trails">TRAILS</button>
+  </div>
+
+  <div class="shop-grid" id="shop-grid"></div>
+</section>
+
+<!-- ============ SETTINGS SCREEN ============ -->
+<section id="settings-screen" class="screen hidden">
+  <div class="grid-floor"></div>
+  <header class="sub-header">
+    <button class="btn-icon" id="settings-back">←</button>
+    <h2>SETTINGS</h2>
+    <div style="width:40px"></div>
+  </header>
+
+  <div class="glass-card settings-card">
+    <label class="settings-label">SWIPE SENSITIVITY</label>
+    <input type="range" id="sensitivity-slider" min="20" max="150" value="70">
+    <div class="sensitivity-hint">
+      <span>Sensitive</span><span>Relaxed</span>
+    </div>
+  </div>
+
+  <div class="glass-card settings-card">
+    <label class="settings-label">SOUND</label>
+    <div class="toggle-row">
+      <span>Music &amp; SFX</span>
+      <label class="switch">
+        <input type="checkbox" id="sound-toggle" checked>
+        <span class="slider-toggle"></span>
+      </label>
+    </div>
+  </div>
+
+  <button class="btn btn-glass howto-btn" id="btn-howto">📖 HOW TO PLAY</button>
+</section>
+
+<!-- ============ HOW TO PLAY MODAL ============ -->
+<div id="howto-modal" class="modal-overlay hidden">
+  <div class="glass-card modal-box">
+    <h3>HOW TO PLAY</h3>
+    <ul class="howto-list">
+      <li><b>Swipe left / right</b> to switch lanes.</li>
+      <li>Avoid <span class="tag-danger">red blocks</span> — one hit ends the run.</li>
+      <li>Collect <span class="tag-coin">coins</span> for +15 bonus score.</li>
+      <li><span class="tag-shield">Shield</span> blocks one hit — your character glows while active.</li>
+      <li><span class="tag-magnet">Magnet</span> pulls nearby coins toward you for a few seconds.</li>
+      <li>Speed — and score gain — increases the longer you survive.</li>
+      <li>Unlock new skins, themes &amp; trails in the Shop as your best score grows.</li>
+    </ul>
+    <button class="btn btn-primary" id="howto-close">GOT IT</button>
+  </div>
+</div>
+
+<!-- ============ GAME SCREEN ============ -->
+<section id="game-screen" class="screen hidden">
+  <canvas id="game-canvas"></canvas>
+
+  <div class="hud">
+    <div class="glass-pill hud-score" id="hud-score">0</div>
+    <button class="btn-icon hud-pause" id="btn-pause">⏸</button>
+  </div>
+
+  <div class="powerup-hud" id="powerup-hud"></div>
+
+  <div class="countdown-overlay hidden" id="countdown-overlay">
+    <span id="countdown-num">3</span>
+  </div>
+</section>
+
+<!-- ============ PAUSE OVERLAY ============ -->
+<div id="pause-overlay" class="modal-overlay hidden">
+  <div class="glass-card modal-box">
+    <h3>PAUSED</h3>
+    <button class="btn btn-primary" id="btn-resume">▶ RESUME</button>
+    <button class="btn btn-glass" id="btn-pause-menu">☰ MENU</button>
+  </div>
+</div>
+
+<!-- ============ GAME OVER SCREEN ============ -->
+<section id="gameover-screen" class="screen hidden">
+  <div class="grid-floor"></div>
+  <div class="gameover-content">
+    <h2 class="gameover-title">RUN OVER</h2>
+
+    <div class="glass-card score-box animated-glow" id="final-score-box">
+      <div class="score-box-row">
+        <span class="score-label">SCORE</span>
+        <span class="score-value" id="final-score">0</span>
+      </div>
+      <div class="score-box-row sub">
+        <span class="score-label">BEST</span>
+        <span class="score-value small" id="final-best">0</span>
+      </div>
+      <div class="new-best-tag hidden" id="new-best-tag">★ NEW BEST ★</div>
+    </div>
+
+    <div class="gameover-actions">
+      <button class="btn btn-primary" id="btn-retry">↻ RETRY</button>
+      <button class="btn btn-glass" id="btn-gameover-menu">☰ MENU</button>
+    </div>
+  </div>
+</section>
+
+<script src="game.js"></script>
+</body>
+</html>
