@@ -39,22 +39,22 @@ let SAVE = loadSave();
 const CATALOG = {
   skins: [
     { id:'skin_cyan',    name:'Cyan Pulse',   unlockScore:0,    color:'#00f6ff', icon:'▲' },
-    { id:'skin_magenta', name:'Magenta Bolt', unlockScore:150,  color:'#ff2ea6', icon:'▲' },
-    { id:'skin_gold',    name:'Gold Rush',    unlockScore:400,  color:'#e8ff59', icon:'▲' },
-    { id:'skin_mint',    name:'Mint Surge',   unlockScore:800,  color:'#5cffb0', icon:'▲' },
-    { id:'skin_prism',   name:'Prism',        unlockScore:1500, color:'prism',   icon:'◆' },
+    { id:'skin_magenta', name:'Magenta Bolt', unlockScore:500,  color:'#ff2ea6', icon:'▲' },
+    { id:'skin_gold',    name:'Gold Rush',    unlockScore:950,  color:'#e8ff59', icon:'▲' },
+    { id:'skin_mint',    name:'Mint Surge',   unlockScore:2500,  color:'#5cffb0', icon:'▲' },
+    { id:'skin_prism',   name:'Prism',        unlockScore:5000, color:'prism',   icon:'◆' },
   ],
   themes: [
     { id:'theme_grid',    name:'Neon Grid',   unlockScore:0,   colors:['#05070d','#0a0f1e','#00f6ff'] },
-    { id:'theme_sunset',  name:'Retrowave',   unlockScore:250, colors:['#1a0521','#3a0f4a','#ff6ec7'] },
-    { id:'theme_matrix',  name:'Matrix',      unlockScore:600, colors:['#020a04','#04150a','#3dff6e'] },
-    { id:'theme_ice',     name:'Deep Ice',    unlockScore:1100,colors:['#020814','#04213a','#7fe3ff'] },
+    { id:'theme_sunset',  name:'Retrowave',   unlockScore:500, colors:['#1a0521','#3a0f4a','#ff6ec7'] },
+    { id:'theme_matrix',  name:'Matrix',      unlockScore:1500, colors:['#020a04','#04150a','#3dff6e'] },
+    { id:'theme_ice',     name:'Deep Ice',    unlockScore:5500,colors:['#020814','#04213a','#7fe3ff'] },
   ],
   trails: [
     { id:'trail_none',  name:'No Trail',   unlockScore:0,   color:null },
-    { id:'trail_spark', name:'Spark Trail',unlockScore:100, color:'#e8ff59' },
-    { id:'trail_comet', name:'Comet Trail',unlockScore:500, color:'#ff2ea6' },
-    { id:'trail_ion',   name:'Ion Trail',  unlockScore:1000,color:'#5cffb0' },
+    { id:'trail_spark', name:'Spark Trail',unlockScore:950, color:'#e8ff59' },
+    { id:'trail_comet', name:'Comet Trail',unlockScore:2000, color:'#ff2ea6' },
+    { id:'trail_ion',   name:'Ion Trail',  unlockScore:6000,color:'#5cffb0' },
   ]
 };
 
