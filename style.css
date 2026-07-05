@@ -1,0 +1,317 @@
+/* =====================================================
+   NEON DRIFT — Design tokens
+   ===================================================== */
+:root{
+  --bg:            #05070d;
+  --bg-2:          #0a0f1e;
+  --surface:       rgba(255,255,255,0.045);
+  --surface-brd:   rgba(255,255,255,0.09);
+  --cyan:          #00f6ff;
+  --magenta:       #ff2ea6;
+  --yellow:        #e8ff59;
+  --danger:        #ff2749;
+  --mint:          #5cffb0;
+  --text:          #eaf6ff;
+  --text-dim:      #8fa3bf;
+  --font-display:  'Orbitron', sans-serif;
+  --font-body:     'Rajdhani', sans-serif;
+  --radius:        18px;
+}
+
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body{
+  margin:0; padding:0; width:100%; height:100%;
+  overflow:hidden; background:var(--bg); color:var(--text);
+  font-family:var(--font-body);
+  touch-action:none;
+  user-select:none;
+}
+
+/* =====================================================
+   Screens
+   ===================================================== */
+.screen{
+  position:fixed; inset:0;
+  display:flex; flex-direction:column; align-items:center;
+  background:radial-gradient(ellipse at 50% 0%, var(--bg-2) 0%, var(--bg) 70%);
+  overflow:hidden;
+}
+.hidden{ display:none !important; }
+
+/* Signature element — receding neon grid horizon */
+.grid-floor{
+  position:absolute; left:0; right:0; bottom:0; height:55%;
+  background-image:
+    linear-gradient(rgba(0,246,255,0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,246,255,0.35) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(280px) rotateX(60deg) translateY(0);
+  transform-origin:bottom;
+  animation: gridScroll 1.6s linear infinite;
+  opacity:0.5;
+  -webkit-mask-image: linear-gradient(to top, black 30%, transparent 95%);
+          mask-image: linear-gradient(to top, black 30%, transparent 95%);
+}
+@keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 60px; } }
+
+.scanline-overlay{
+  position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 2px, transparent 4px);
+}
+
+/* =====================================================
+   Typography
+   ===================================================== */
+.logo-text{
+  font-family:var(--font-display); font-weight:900;
+  font-size:clamp(2.2rem, 9vw, 3.4rem);
+  letter-spacing:4px; margin:0; text-align:center;
+  color:var(--text);
+  text-shadow:0 0 12px rgba(0,246,255,0.6);
+}
+.logo-text span{ color:var(--magenta); text-shadow:0 0 14px rgba(255,46,166,0.75); }
+.logo-text.small{ font-size:clamp(1.4rem,6vw,1.8rem); margin-top:28px; }
+
+/* =====================================================
+   Loading screen
+   ===================================================== */
+.loading-content{
+  position:relative; z-index:2; margin:auto;
+  display:flex; flex-direction:column; align-items:center; gap:22px;
+  width:min(320px, 80vw);
+}
+.load-bar-track{
+  width:100%; height:8px; border-radius:6px;
+  background:rgba(255,255,255,0.08);
+  overflow:hidden; border:1px solid var(--surface-brd);
+}
+.load-bar-fill{
+  height:100%; width:0%;
+  background:linear-gradient(90deg, var(--cyan), var(--magenta));
+  box-shadow:0 0 12px var(--cyan);
+  transition:width 0.15s linear;
+}
+.load-status{
+  font-family:var(--font-display); font-size:0.7rem; letter-spacing:2px;
+  color:var(--text-dim); text-transform:uppercase;
+}
+
+/* =====================================================
+   Glass card / pill primitives
+   ===================================================== */
+.glass-card{
+  background:var(--surface);
+  border:1px solid var(--surface-brd);
+  border-radius:var(--radius);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+  padding:18px 22px;
+}
+.glass-pill{
+  background:var(--surface);
+  border:1px solid var(--surface-brd);
+  border-radius:100px;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  padding:8px 18px;
+  font-family:var(--font-display); font-size:0.75rem; letter-spacing:1px;
+}
+
+.animated-glow{
+  animation:pulseGlow 2.2s ease-in-out infinite;
+}
+@keyframes pulseGlow{
+  0%,100%{ box-shadow:0 8px 32px rgba(0,0,0,0.45), 0 0 0px rgba(0,246,255,0.0); border-color:var(--surface-brd); }
+  50%{ box-shadow:0 8px 40px rgba(0,0,0,0.45), 0 0 26px rgba(0,246,255,0.35); border-color:rgba(0,246,255,0.5); }
+}
+
+/* Score box */
+.score-box{ position:relative; z-index:2; margin-top:26px; min-width:220px; text-align:center; }
+.score-box-row{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+.score-box-row.sub{ margin-top:6px; opacity:0.7; }
+.score-label{ font-family:var(--font-display); font-size:0.7rem; letter-spacing:2px; color:var(--text-dim); }
+.score-value{ font-family:var(--font-display); font-size:1.7rem; font-weight:700; color:var(--cyan); text-shadow:0 0 10px rgba(0,246,255,0.6); }
+.score-value.small{ font-size:1.1rem; color:var(--magenta); text-shadow:0 0 10px rgba(255,46,166,0.5); }
+.new-best-tag{
+  margin-top:10px; font-family:var(--font-display); font-size:0.8rem; letter-spacing:2px;
+  color:var(--yellow); text-shadow:0 0 10px rgba(232,255,89,0.7);
+  animation:blink 1s steps(2) infinite;
+}
+@keyframes blink{ 50%{ opacity:0.25; } }
+
+/* =====================================================
+   Buttons
+   ===================================================== */
+.btn{
+  font-family:var(--font-display); font-size:0.95rem; letter-spacing:1.5px;
+  padding:16px 28px; border-radius:14px; border:1px solid var(--surface-brd);
+  cursor:pointer; width:min(280px, 78vw); text-align:center;
+  transition:transform 0.12s ease, box-shadow 0.2s ease;
+  color:var(--text);
+}
+.btn:active{ transform:scale(0.96); }
+.btn-primary{
+  background:linear-gradient(135deg, rgba(0,246,255,0.18), rgba(255,46,166,0.18));
+  border:1px solid rgba(0,246,255,0.5);
+  box-shadow:0 0 20px rgba(0,246,255,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.btn-glass{
+  background:var(--surface);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+}
+.btn-icon{
+  background:var(--surface); border:1px solid var(--surface-brd);
+  color:var(--text); font-size:1.1rem; width:42px; height:42px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  backdrop-filter:blur(12px);
+}
+
+/* =====================================================
+   Home screen layout
+   ===================================================== */
+.home-header{ position:relative; z-index:2; }
+.home-menu{
+  position:relative; z-index:2; margin-top:auto; margin-bottom:40px;
+  display:flex; flex-direction:column; gap:14px; align-items:center;
+}
+.footer-tag{
+  position:relative; z-index:2; margin-bottom:18px;
+  font-size:0.8rem; color:var(--text-dim); letter-spacing:1px;
+}
+
+/* =====================================================
+   Sub header (shop / settings)
+   ===================================================== */
+.sub-header{
+  position:relative; z-index:2; width:100%;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 20px; font-family:var(--font-display);
+}
+.sub-header h2{ font-size:1rem; letter-spacing:3px; margin:0; }
+
+/* =====================================================
+   Shop
+   ===================================================== */
+.tabs{ position:relative; z-index:2; display:flex; gap:8px; padding:0 20px 12px; }
+.tab{
+  flex:1; padding:10px 0; border-radius:10px; border:1px solid var(--surface-brd);
+  background:transparent; color:var(--text-dim); font-family:var(--font-display);
+  font-size:0.7rem; letter-spacing:1px; cursor:pointer;
+}
+.tab.active{ background:var(--surface); color:var(--cyan); border-color:rgba(0,246,255,0.4); }
+
+.shop-grid{
+  position:relative; z-index:2; width:100%; flex:1; overflow-y:auto;
+  display:grid; grid-template-columns:repeat(2, 1fr); gap:14px; padding:6px 20px 30px;
+}
+.shop-item{
+  background:var(--surface); border:1px solid var(--surface-brd); border-radius:16px;
+  padding:14px; display:flex; flex-direction:column; align-items:center; gap:8px;
+  backdrop-filter:blur(14px);
+}
+.shop-item.locked{ opacity:0.45; }
+.shop-item.selected{ border-color:var(--cyan); box-shadow:0 0 18px rgba(0,246,255,0.35); }
+.item-swatch{
+  width:56px; height:56px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center; font-size:1.4rem;
+}
+.item-name{ font-size:0.8rem; font-weight:600; text-align:center; }
+.item-status{ font-family:var(--font-display); font-size:0.6rem; letter-spacing:1px; color:var(--text-dim); }
+.item-status.unlocked{ color:var(--mint); }
+.item-status.selected{ color:var(--cyan); }
+
+/* =====================================================
+   Settings
+   ===================================================== */
+.settings-card{ width:min(340px, 88vw); margin-top:16px; position:relative; z-index:2; }
+.settings-label{ font-family:var(--font-display); font-size:0.7rem; letter-spacing:2px; color:var(--text-dim); }
+#sensitivity-slider{
+  width:100%; margin-top:14px; accent-color:var(--cyan);
+}
+.sensitivity-hint{ display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-dim); margin-top:4px; }
+.toggle-row{ display:flex; justify-content:space-between; align-items:center; margin-top:10px; }
+.switch{ position:relative; display:inline-block; width:46px; height:26px; }
+.switch input{ opacity:0; width:0; height:0; }
+.slider-toggle{
+  position:absolute; cursor:pointer; inset:0; background:rgba(255,255,255,0.15);
+  border-radius:20px; transition:0.2s;
+}
+.slider-toggle:before{
+  content:""; position:absolute; height:20px; width:20px; left:3px; bottom:3px;
+  background:white; border-radius:50%; transition:0.2s;
+}
+.switch input:checked + .slider-toggle{ background:var(--cyan); }
+.switch input:checked + .slider-toggle:before{ transform:translateX(20px); }
+.howto-btn{ margin-top:24px; position:relative; z-index:2; }
+
+/* =====================================================
+   Modal (how to play / pause)
+   ===================================================== */
+.modal-overlay{
+  position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.55); backdrop-filter:blur(4px);
+}
+.modal-box{
+  width:min(360px, 86vw); display:flex; flex-direction:column; align-items:center; gap:14px;
+  text-align:center;
+}
+.modal-box h3{ font-family:var(--font-display); letter-spacing:2px; margin:0; color:var(--cyan); }
+.howto-list{ text-align:left; font-size:0.95rem; line-height:1.6; padding-left:18px; margin:0; }
+.tag-danger{ color:var(--danger); font-weight:700; }
+.tag-coin{ color:var(--yellow); font-weight:700; }
+.tag-shield{ color:var(--mint); font-weight:700; }
+.tag-magnet{ color:var(--magenta); font-weight:700; }
+
+/* =====================================================
+   Game screen
+   ===================================================== */
+#game-canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+.hud{
+  position:absolute; top:0; left:0; right:0; z-index:5;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:16px 18px;
+}
+.hud-score{ color:var(--cyan); }
+.powerup-hud{
+  position:absolute; top:70px; left:18px; z-index:5;
+  display:flex; flex-direction:column; gap:8px;
+}
+.powerup-badge{
+  font-family:var(--font-display); font-size:0.65rem; letter-spacing:1px;
+  padding:6px 12px; border-radius:100px; backdrop-filter:blur(10px);
+  border:1px solid var(--surface-brd);
+}
+.powerup-badge.shield{ background:rgba(92,255,176,0.12); color:var(--mint); border-color:rgba(92,255,176,0.4); }
+.powerup-badge.magnet{ background:rgba(255,46,166,0.12); color:var(--magenta); border-color:rgba(255,46,166,0.4); }
+
+.countdown-overlay{
+  position:absolute; inset:0; z-index:10; display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.4);
+}
+#countdown-num{
+  font-family:var(--font-display); font-size:5rem; font-weight:900; color:var(--cyan);
+  text-shadow:0 0 30px rgba(0,246,255,0.8);
+}
+
+/* =====================================================
+   Game over
+   ===================================================== */
+.gameover-content{
+  position:relative; z-index:2; margin:auto;
+  display:flex; flex-direction:column; align-items:center; gap:26px;
+}
+.gameover-title{
+  font-family:var(--font-display); font-size:1.6rem; letter-spacing:4px; color:var(--danger);
+  text-shadow:0 0 16px rgba(255,39,73,0.6); margin:0;
+}
+.gameover-actions{ display:flex; flex-direction:column; gap:12px; align-items:center; }
+
+/* =====================================================
+   Responsive tweaks
+   ===================================================== */
+@media (max-height: 620px){
+  .logo-text{ font-size:1.8rem; }
+  .home-menu{ margin-bottom:20px; }
+}
+
