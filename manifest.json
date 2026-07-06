@@ -1,0 +1,16 @@
+{
+  "background_color": "#05070d",
+  "dir": "auto",
+  "display": "standalone",
+  "name": "NeonDrift X",
+  "orientation": "portrait",
+  "scope": "/https://infinityspotx.github.io/InfinityRunnerX/",
+  "short_name": "NeonDrift",
+  "start_url": "/https://infinityspotx.github.io/InfinityRunnerX/",
+  "theme_color": "#05070d",
+  "id": "NeonDriftX",
+  "lang": "en",
+  "categories": [
+    "games"
+  ]
+}
